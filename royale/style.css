@@ -1,0 +1,11 @@
+html, body, #map_canvas {
+    height: 500px;
+    width: 500px;
+    margin: 0px;
+    padding: 0px
+}
+
+.gm-style-iw-ch {
+    padding-top: 0px;
+    height: 0px;
+}
