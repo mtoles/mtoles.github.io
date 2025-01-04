@@ -47,7 +47,7 @@ function initialize() {
     // var request = {
     //     placeId: 'ChIJOwE7_GTtwokRFq0uOwLSE9g'
     // };
-    fetch("http://128.59.18.156:55244/places").then(response => {
+    fetch("https://128.59.18.156:55244/places").then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
