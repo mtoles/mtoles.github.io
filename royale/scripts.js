@@ -29,6 +29,22 @@ function infoWindowDiv(place) {
     return contentString;
 }
 
+function stringToRandomColor(inputString) {
+    // Generate a hash value from the input string
+    let hash = 0;
+    for (let i = 0; i < inputString.length; i++) {
+        hash = inputString.charCodeAt(i) + ((hash << 5) - hash);
+    }
+
+    // Convert hash to a valid RGB color
+    const r = (hash >> 16) & 0xff;
+    const g = (hash >> 8) & 0xff;
+    const b = hash & 0xff;
+
+    // Return color as a string in RGB format
+    return `rgb(${Math.abs(r)}, ${Math.abs(g)}, ${Math.abs(b)})`;
+}
+
 function initialize() {
     var mapDiv = document.getElementById("map_canvas");
     mapDiv.style.position = 'absolute';
@@ -58,10 +74,24 @@ function initialize() {
             content: "Loading..."
         });
         data.forEach( place => {
+            if (place.owner == null) {
+                var color = "rgb(111,111,111)";
+            }
+            else
+                var color = stringToRandomColor(place.owner);
+            
             var marker = new google.maps.Marker({
                 map: map,
                 // position: place.geometry
-                position: new google.maps.LatLng(place.geometry.location.lat, place.geometry.location.lng)
+                position: new google.maps.LatLng(place.geometry.location.lat, place.geometry.location.lng),
+                icon: {
+                    path: google.maps.SymbolPath.CIRCLE,
+                    scale: 10,
+                    fillColor: color,
+                    fillOpacity: 0.5,
+                    strokeColor: color,
+                    strokeWeight: 1
+                  }
             });
             
             google.maps.event.addListener(marker, 'click', function () {
