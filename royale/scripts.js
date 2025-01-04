@@ -86,10 +86,10 @@ function initialize() {
                 position: new google.maps.LatLng(place.geometry.location.lat, place.geometry.location.lng),
                 icon: {
                     path: google.maps.SymbolPath.CIRCLE,
-                    scale: 10,
+                    scale: 12,
                     fillColor: color,
                     fillOpacity: 0.5,
-                    strokeColor: color,
+                    strokeColor: "black",
                     strokeWeight: 1
                   }
             });
