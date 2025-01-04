@@ -88,7 +88,7 @@ function initialize() {
                     path: google.maps.SymbolPath.CIRCLE,
                     scale: 12,
                     fillColor: color,
-                    fillOpacity: 0.5,
+                    fillOpacity: 0.8,
                     strokeColor: "black",
                     strokeWeight: 3
                   }
