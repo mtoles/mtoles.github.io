@@ -90,7 +90,7 @@ function initialize() {
                     fillColor: color,
                     fillOpacity: 0.5,
                     strokeColor: "black",
-                    strokeWeight: 1
+                    strokeWeight: 3
                   }
             });
             
