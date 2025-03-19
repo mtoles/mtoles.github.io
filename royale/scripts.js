@@ -55,7 +55,7 @@ function initialize() {
 
     map = new google.maps.Map(
         mapDiv, {
-            center: new google.maps.LatLng(47.609952, -122.329062),
+            center: new google.maps.LatLng(40.740111, -73.992315),
             zoom: 13,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
