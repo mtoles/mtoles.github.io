@@ -42,10 +42,12 @@ function stringToRandomColor(inputString) {
     const b = hash & 0xff;
 
     // Return color as a string in RGB format
-    return `rgb(${Math.abs(r)}, ${Math.abs(g)}, ${Math.abs(b)})`;
+    return [Math.abs(r), Math.abs(g), Math.abs(b)];
 }
 
-function initialize() {
+async function initialize() {
+    const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
+
     var mapDiv = document.getElementById("map_canvas");
     mapDiv.style.position = 'absolute';
     mapDiv.style.left = '0px';
@@ -57,7 +59,8 @@ function initialize() {
         mapDiv, {
             center: new google.maps.LatLng(40.740111, -73.992315),
             zoom: 13,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            mapId: "MY_MAP_ID"
         });
 
     // var request = {
@@ -75,23 +78,39 @@ function initialize() {
         });
         data.forEach( place => {
             if (place.owner == null) {
-                var color = "rgb(111,111,111)";
+                var color_hex = [111,111,111];
             }
             else
-                var color = stringToRandomColor(place.owner);
+                var color_hex = stringToRandomColor(place.owner);
+
+            var color = "rgb(" + color_hex[0] + "," + color_hex[1] + "," + color_hex[2] + ")";
+            var bg_color_hex = [Math.max(0, color_hex[0] -50), Math.max(0, color_hex[1] -50), Math.max(0, color_hex[2] -50)];
+            var bg_color = "rgb(" + bg_color_hex[0] + "," + bg_color_hex[1] + "," + bg_color_hex[2] + ")";
+
+
             
-            var marker = new google.maps.Marker({
+            const icon = document.createElement("div");
+            icon.innerHTML = '<i class="fa fa-pizza-slice fa-lg"></i>';
+
+            const faPin = new PinElement({
+                glyph: icon,
+                glyphColor: color,
+                background: bg_color,
+                borderColor: color,
+                });
+            var marker = new google.maps.marker.AdvancedMarkerElement({
                 map: map,
                 // position: place.geometry
                 position: new google.maps.LatLng(place.geometry.location.lat, place.geometry.location.lng),
-                icon: {
-                    path: google.maps.SymbolPath.CIRCLE,
-                    scale: 12,
-                    fillColor: color,
-                    fillOpacity: 0.8,
-                    strokeColor: "black",
-                    strokeWeight: 3
-                  }
+                // icon: {
+                //     path: google.maps.SymbolPath.CIRCLE,
+                //     scale: 12,
+                //     fillColor: color,
+                //     fillOpacity: 0.8,
+                //     strokeColor: "black",
+                //     strokeWeight: 3
+                //   }
+                content: faPin.element,
             });
             
             google.maps.event.addListener(marker, 'click', function () {
