@@ -2,7 +2,7 @@ var geocoder;
 var map;
 
 function infoWindowDiv(place) {
-    var contentString = `<div style="white-space: pre-line; font-size: 25px; padding-left: 20px; padding-right: 20px; padding-bottom: 20px;">
+    var contentString = `<div style="white-space: pre-line; font-size: 25px; padding-left: 20px; padding-right: 20px; padding-bottom: 20px; overflow-wrap: break-word;">
       <strong>${place.Place} (${place.ID})</strong>
       
       <strong>Owner</strong>: ${place.owner}
@@ -65,8 +65,8 @@ async function initialize() {
     const closeButton = document.createElement("div");
     closeButton.innerHTML = "&#x2715;"; // X symbol
     closeButton.style.position = "absolute";
-    closeButton.style.top = "5px";
-    closeButton.style.right = "10px";
+    closeButton.style.top = "10px";
+    closeButton.style.right = "60px";
     closeButton.style.cursor = "pointer";
     closeButton.style.fontSize = "50px";
     closeButton.style.fontWeight = "bold";
