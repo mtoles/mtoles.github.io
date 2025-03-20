@@ -17,13 +17,14 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBAkArK5U1zyba6jkaKycU5S1vNpBKLTHs&libraries=places&callback=initialize"></script>
     <script>
         function initialize() {
-            fetch("https://128.59.18.156:55244/places").then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                console.log(response);
-                return response.json();
-            });
+
+
+
+            
+
+
+
+
             var map = new google.maps.Map(document.getElementById("map_canvas"), {
                 center: new google.maps.LatLng(37.4419, -122.1419),
                 zoom: 13,
@@ -52,6 +53,50 @@
                     map.fitBounds(place.geometry.viewport);
                 }
             });
+
+
+
+            fetch("https://128.59.18.156:55244/places").then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+                .then(data => {
+                    var infowindow = new google.maps.InfoWindow({
+                        content: "Loading..."
+                    });
+                    data.forEach(place => {
+                        if (place.owner == null) {
+                            var color = "rgb(111,111,111)";
+                        }
+                        else
+                            var color = stringToRandomColor(place.owner);
+
+                        var marker = new google.maps.Marker({
+                            map: map,
+                            // position: place.geometry
+                            position: new google.maps.LatLng(place.geometry.location.lat, place.geometry.location.lng),
+                            icon: {
+                                path: google.maps.SymbolPath.CIRCLE,
+                                scale: 12,
+                                fillColor: color,
+                                fillOpacity: 0.8,
+                                strokeColor: "black",
+                                strokeWeight: 3
+                            }
+                        });
+
+                        google.maps.event.addListener(marker, 'click', function () {
+                            infowindow.setContent(infoWindowDiv(place));
+                            infowindow.open(map, this);
+                        });
+
+                    });
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
         }
 
         google.maps.event.addDomListener(window, "load", initialize);
