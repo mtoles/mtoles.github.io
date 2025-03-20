@@ -31,13 +31,13 @@ function stringToRandomColor(inputString) {
 }
 
 async function initialize() {
-    const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
-
+    
     var mapDiv = document.getElementById("map_canvas");
     mapDiv.style.position = 'absolute';
     mapDiv.style.left = '0px';
     mapDiv.style.top = '0px';
     mapDiv.style.width = '100%';
+    const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
     mapDiv.style.height = '100%';
 
     map = new google.maps.Map(mapDiv, {
@@ -105,7 +105,8 @@ async function initialize() {
                     borderColor: color,
                 });
 
-                var marker = new google.maps.marker.AdvancedMarkerElement({
+                // var marker = new google.maps.marker.AdvancedMarkerElement({
+                var marker = new AdvancedMarkerElement({
                     map: map,
                     position: new google.maps.LatLng(place.geometry.location.lat, place.geometry.location.lng),
                     content: faPin.element,
