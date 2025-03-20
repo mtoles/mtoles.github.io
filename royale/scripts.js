@@ -110,6 +110,7 @@ async function initialize() {
                     map: map,
                     position: new google.maps.LatLng(place.geometry.location.lat, place.geometry.location.lng),
                     content: faPin.element,
+                    
                 });
 
                 google.maps.event.addListener(marker, 'click', function () {
