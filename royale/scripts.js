@@ -106,12 +106,17 @@ async function initialize() {
                 });
 
                 // var marker = new google.maps.marker.AdvancedMarkerElement({
-                var marker = new AdvancedMarkerElement({
-                    map: map,
-                    position: new google.maps.LatLng(place.geometry.location.lat, place.geometry.location.lng),
-                    content: faPin.element,
+                // var marker = new AdvancedMarkerElement({
+                //     map: map,
+                //     position: new google.maps.LatLng(place.geometry.location.lat, place.geometry.location.lng),
+                //     content: faPin.element,
                     
-                });
+                // });
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: place.geometry.location
+                    
+                  });
 
                 google.maps.event.addListener(marker, 'click', function () {
                     // Clear previous content and re-add the close button
