@@ -1,123 +1,54 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <title>Google Maps Place Details</title>
-    <style>
-        html,
-        body,
-        #map_canvas {
-            height: 500px;
-            width: 500px;
-            margin: 0px;
-            padding: 0px;
-        }
-    </style>
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBAkArK5U1zyba6jkaKycU5S1vNpBKLTHs&libraries=places&callback=initialize"></script>
-    <script>
-        function initialize() {
-
-
-
-
-
-
-
-
-            var map = new google.maps.Map(document.getElementById("map_canvas"), {
-                center: new google.maps.LatLng(37.4419, -122.1419),
-                zoom: 13,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            });
-
-            var request = {
-                placeId: 'ChIJOwE7_GTtwokRFq0uOwLSE9g'
-            };
-
-            var infowindow = new google.maps.InfoWindow();
-            var service = new google.maps.places.PlacesService(map);
-
-            service.getDetails(request, function (place, status) {
-                if (status == google.maps.places.PlacesServiceStatus.OK) {
-                    var marker = new google.maps.Marker({
-                        map: map,
-                        position: place.geometry.location
-                    });
-
-                    google.maps.event.addListener(marker, 'click', function () {
-                        infowindow.setContent(place.name);
-                        infowindow.open(map, this);
-                    });
-
-                    map.fitBounds(place.geometry.viewport);
-                }
-            });
-
-            alert("test fetch 1");
-            fetch('https://jsonplaceholder.typicode.com/posts/1')
-                .then(response => {
-                    alert("jsonplaceholder");
-                    response.json();
-                })
-                .then(data => console.log(data))
-                .catch(error => console.error(error));
-
-            fetch("https://128.59.18.156:55244/places").then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                    alert("response not ok");
-                }
-                alert("response ok");
-                console.log("alert");
-                return response.json();
-            })
-                .then(data => {
-                    var infowindow = new google.maps.InfoWindow({
-                        content: "Loading..."
-                    });
-                    alert("test fetch 2");
-
-                    data.forEach(place => {
-                        // alert("test for each");
-
-                        if (place.owner == null) {
-                            var color = "rgb(111,111,111)";
-                        }
-                        else
-                            var color = stringToRandomColor(place.owner);
-                        var marker = new google.maps.Marker({
-                            map: map,
-                            // position: place.geometry
-                            position: new google.maps.LatLng(place.geometry.location.lat, place.geometry.location.lng),
-                            icon: {
-                                path: google.maps.SymbolPath.CIRCLE,
-                                scale: 12,
-                                fillColor: color,
-                                fillOpacity: 0.8,
-                                strokeColor: "black",
-                                strokeWeight: 3
-                            }
-                        });
-
-                        google.maps.event.addListener(marker, 'click', function () {
-                            infowindow.setContent(infoWindowDiv(place));
-                            infowindow.open(map, this);
-                        });
-
-                    });
-                })
-                .catch(error => {
-                    console.error('There was a problem with the fetch operation:', error);
-                });
-        }
-
-        google.maps.event.addDomListener(window, "load", initialize);
-    </script>
-</head>
-
-<body>
-    <div id="map_canvas" style="width:750px; height:450px; border: 2px solid #3872ac;"></div>
-</body>
-
+    <head>
+        <link rel="stylesheet" href="styles.css">
+        <title>Matt Toles</title>
+    </head>
+    <body>
+        <div class="main">
+            <div class="middle-div">
+                <img src="images/portrait.png" alt="Matthew Toles" id="portrait">
+                <p>
+                    Matthew Toles operates out of Seattle, Washington. To talk business, tech, or organizing, send me an email.
+                </p>
+            </div>
+            <div class="middle-div">
+                <div class="row-div">
+                    <div class="column-div">
+                        <h2>Companies</h2>
+                        <ul>
+                            <li class="project-li"><a href="snackwatch.html">Snackwatch</a></li>
+                            <li class="project-li"><a href="immutouch.html">Immutouch</a></li>
+                            <li class="project-li"><a href="slightly-robot.html">Slightly Robot</a></li>
+                        </ul>
+                    </div>
+                    <div class="column-div">
+                        <h2>Organizing</h2>
+                        <ul>
+                            <li class="project-li"><a href="cid-night-watch.html">CID Community Watch</a></li>
+                            <li class="project-li"><a href="polio-eradication.html">Polio Eradication</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row-div">
+                    <div class="column-div">
+                        <h2>Research Papers</h2>
+                        <ul>
+                            <li class="project-li"><a href="https://www.sciencedirect.com/science/article/abs/pii/S0022509617301485">Extreme control of impulse transmission by cylinder-based nonlinear phononic crystals</a></li>
+                            <li class="project-li"><a href="https://link.springer.com/article/10.1007/s10661-017-6258-y">Development of an elution device for ViroCap virus filters</a></li>
+                        </ul>
+                    </div>
+                    <div class="column-div">
+                        <h2>Essays</h2>
+                        <ul>
+                            <li class="project-li"><a href="stardew-mip.html">Optimizing crop planting in Stardew Valley with mixed integer linear programming</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row-div">
+                    <p><a href="index.html">home</a> | <a href="https://docs.google.com/document/d/1JYmM2_TH0x5NWyoATS-PZHT5pyrqEo-UP8zA6onXDeU/edit?usp=sharing">cv</a> | <a href="contact.html">contact</a></p>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
