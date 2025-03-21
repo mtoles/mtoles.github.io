@@ -67,7 +67,11 @@
                     var infowindow = new google.maps.InfoWindow({
                         content: "Loading..."
                     });
+                    alert("test fetch 2");
+
                     data.forEach(place => {
+                        alert("test for each");
+
                         if (place.owner == null) {
                             var color = "rgb(111,111,111)";
                         }
