@@ -54,13 +54,14 @@
                 }
             });
 
-
+            alert("test fetch 1");
             fetch("https://128.59.18.156:55244/places").then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
+                    alert("response not ok");
                 }
-                alert("test fetch asdf");
-                console.log("alert")
+                alert("response ok");
+                console.log("alert");
                 return response.json();
             })
                 .then(data => {
@@ -70,7 +71,7 @@
                     alert("test fetch 2");
 
                     data.forEach(place => {
-                        alert("test for each");
+                        // alert("test for each");
 
                         if (place.owner == null) {
                             var color = "rgb(111,111,111)";
